@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:myfin/controller/expenses_controller.dart';
 import 'package:myfin/model/pie_data.dart';
 import 'package:myfin/widget/circulat_bar.dart';
 import 'package:myfin/widget/graph_footer.dart';
@@ -7,6 +9,7 @@ import 'package:myfin/widget/main_box.dart';
 import 'package:myfin/widget/second_box.dart';
 
 class ExpensePage extends StatelessWidget {
+  ExpensesController expenses = Get.put(ExpensesController());
   var pieDataPengeluaran = [
     PieData('Transport', 20, 'rp 20.000'),
     PieData('Transportaion', 40, 'Rp 40.000'),
@@ -76,7 +79,7 @@ class ExpensePage extends StatelessWidget {
             children: [
               Text("Your expenses : "),
               Text(
-                "IDR 900.000",
+                "IDR ${expenses.total}",
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 19,

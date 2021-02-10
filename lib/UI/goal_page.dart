@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:myfin/controller/goal_controller.dart';
+import 'package:myfin/controller/user_controller.dart';
 import 'package:myfin/model/pie_data.dart';
 import 'package:myfin/widget/circulat_bar.dart';
 import 'package:myfin/widget/graph_footer.dart';
@@ -9,6 +12,8 @@ import 'package:myfin/widget/main_box.dart';
 import 'package:myfin/widget/second_box.dart';
 
 class GoalPage extends StatelessWidget {
+  final UserController user = Get.find();
+  final GoalController goal = Get.find();
   var pieDataTabungan = [
     PieData('Kekurang', 80, 'Rp. 80.000.000'),
     PieData('tabungan', 40, 'Rp. 40.000.000'),
@@ -93,7 +98,7 @@ class GoalPage extends StatelessWidget {
               color: Colors.blue,
             ),
             Text(
-              "Buy a Home",
+              "${goal.goalname}",
               style: TextStyle(fontWeight: FontWeight.w300, fontSize: 18),
             ),
             Spacer(
@@ -137,7 +142,7 @@ class GoalPage extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Text(
-                  "IDR 420.000.000",
+                  "IDR ${goal.goalcost}",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 19,
@@ -167,7 +172,7 @@ class GoalPage extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Text(
-                  "IDR 90.000.000",
+                  "IDR ${goal.deposite}",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 19,
@@ -205,7 +210,7 @@ class GoalPage extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Text(
-                  "IDR 90.000.000",
+                  "IDR ${goal.gab}",
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 19,
@@ -225,7 +230,7 @@ class GoalPage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          heading(),
+          heading(user.image, user.username),
           mainBox(320, graphBar(pieDataTabungan, "tabungan"), "Financial Goal"),
           footerGraph(_bodyFooter("Goals")),
           secondBox(

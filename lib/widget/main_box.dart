@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:myfin/UI/form_input_page.dart';
 
 Widget mainBox(double height, body, String boxTitle) {
   return Container(
@@ -94,7 +96,9 @@ Widget mainBox(double height, body, String boxTitle) {
                                 height: 40,
                                 child: Icon(Icons.add),
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                Get.to(InputForm());
+                              },
                             ),
                           ),
                         ),

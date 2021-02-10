@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget heading() {
+Widget heading(image, username) {
   return Container(
     width: double.infinity,
     height: 180,
@@ -22,8 +22,7 @@ Widget heading() {
       child: Row(
         children: [
           ClipOval(
-            child: Image.network(
-                "https://cdn.cp.adobe.io/content/2/rendition/03c33e07-3723-4789-847a-b3e0d6b05187/artwork/70a1734f-40dc-40c9-b693-5a3b6df7a9c7/version/0/format/jpg/dimension/width/size/300"),
+            child: Image.network("$image"),
           ),
           SizedBox(
             width: 40,
@@ -42,7 +41,7 @@ Widget heading() {
                 height: 15,
               ),
               Text(
-                "Uta Praditya",
+                "$username",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
               ),
             ],
