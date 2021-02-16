@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:myfin/controller/Input_form_controller.dart';
+import 'package:myfin/controller/outcome_form_controller.dart';
+import 'package:myfin/widget/text_form.dart';
 
 class OutcomeForm extends StatefulWidget {
   @override
@@ -6,8 +10,7 @@ class OutcomeForm extends StatefulWidget {
 }
 
 class _OutcomeFormState extends State<OutcomeForm> {
-  final formkey = GlobalKey<FormState>();
-  String username = ' ';
+  OutputFormController output = Get.find();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,13 +18,22 @@ class _OutcomeFormState extends State<OutcomeForm> {
         height: double.infinity,
         color: Colors.red[50],
         child: Form(
-            key: formkey,
+            key: output.formkey,
             child: ListView(
               padding: EdgeInsets.all(16),
               children: [
-                buildTextForm('Keterangan', 60, username),
-                buildTextForm('Category', 60, username),
-                buildTextForm('Nominal', 60, username),
+                buildTextForm(
+                    label: 'Keterangan',
+                    lenght: 60,
+                    onsave: (value) => {output.keterangan = value}),
+                buildTextForm(
+                    label: 'Category',
+                    lenght: 60,
+                    onsave: (value) => {output.nominal = value}),
+                buildTextForm(
+                    label: 'Nominal',
+                    lenght: 60,
+                    onsave: (value) => {output.nominal = value}),
                 SizedBox(
                   height: 10,
                 ),

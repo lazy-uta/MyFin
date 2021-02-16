@@ -14,8 +14,6 @@ import 'package:myfin/widget/second_box.dart';
 
 class GoalPage extends StatelessWidget {
   final UserController user = Get.find();
-  final InputFormController inputFormController =
-      Get.put(InputFormController());
   final GoalController goal = Get.find();
   var pieDataTabungan = [
     PieData('Kekurang', 80, 'Rp. 80.000.000'),

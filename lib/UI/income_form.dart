@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myfin/controller/Input_form_controller.dart';
+import 'package:myfin/widget/text_form.dart';
 
 class IncomeForm extends StatefulWidget {
   @override
@@ -12,6 +13,66 @@ class _IncomeFormState extends State<IncomeForm> {
 
   @override
   Widget build(BuildContext context) {
+    Widget dropdown() {
+      return DropdownButton(
+        value: input.initial.value,
+        hint: Text("Category"),
+        isExpanded: true,
+        items: [
+          DropdownMenuItem(
+            child: Container(
+              padding: EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  Icon(Icons.ac_unit),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Text("Ac")
+                ],
+              ),
+            ),
+            value: 0,
+          ),
+          DropdownMenuItem(
+            child: Container(
+              padding: EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  Icon(Icons.ac_unit),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Text("Food & Drink")
+                ],
+              ),
+            ),
+            value: 1,
+          ),
+          DropdownMenuItem(
+            child: Container(
+              padding: EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  Icon(Icons.ac_unit),
+                  SizedBox(
+                    width: 12,
+                  ),
+                  Text("Ac")
+                ],
+              ),
+            ),
+            value: 2,
+          )
+        ],
+        onChanged: (value) {
+          input.category = value;
+          input.initial.value = value;
+          print("initial : ${input.initial.value}");
+        },
+      );
+    }
+
     return Container(
         width: double.infinity,
         height: double.infinity,
@@ -21,9 +82,15 @@ class _IncomeFormState extends State<IncomeForm> {
             child: ListView(
               padding: EdgeInsets.all(16),
               children: [
-                buildTextForm('Keterangan', 60, input.keterangan),
-                buildTextForm('Category', 60, input.category),
-                buildTextForm('Nominal', 12, input.nominal),
+                buildTextForm(
+                    label: 'keterangan',
+                    lenght: 60,
+                    onsave: (value) => {input.keterangan = value}),
+                buildTextForm(
+                    label: 'Nominal',
+                    lenght: 12,
+                    onsave: (value) => {input.nominal = value}),
+                dropdown(),
                 SizedBox(
                   height: 10,
                 ),

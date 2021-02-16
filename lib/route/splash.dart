@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myfin/controller/Input_form_controller.dart';
 import 'package:myfin/controller/goal_controller.dart';
+import 'package:myfin/controller/outcome_form_controller.dart';
 import 'package:myfin/controller/splash_controller.dart';
 import 'package:myfin/controller/user_controller.dart';
 
@@ -11,6 +13,9 @@ class Splash extends StatelessWidget {
   SplashController splashController = Get.put(SplashController());
   UserController userController = Get.put(UserController(), permanent: true);
   GoalController goalController = Get.put(GoalController(), permanent: true);
+  InputFormController income = Get.put(InputFormController(), permanent: true);
+  OutputFormController outcome =
+      Get.put(OutputFormController(), permanent: true);
   @override
   Widget build(BuildContext context) {
     goalController.calculate();
