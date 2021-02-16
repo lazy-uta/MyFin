@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:myfin/UI/splash.dart';
-
-import 'UI/expenses_page.dart';
-import 'UI/goal_page.dart';
+import 'package:myfin/route/expenses_page.dart';
+import 'package:myfin/route/goal_page.dart';
+import 'package:myfin/route/splash.dart';
 
 void main() {
   runApp(GetMaterialApp(home: Splash()));
