@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:myfin/controller/Input_form_controller.dart';
 import 'package:myfin/controller/goal_controller.dart';
 import 'package:myfin/controller/user_controller.dart';
 import 'package:myfin/model/pie_data.dart';
@@ -13,6 +14,8 @@ import 'package:myfin/widget/second_box.dart';
 
 class GoalPage extends StatelessWidget {
   final UserController user = Get.find();
+  final InputFormController inputFormController =
+      Get.put(InputFormController());
   final GoalController goal = Get.find();
   var pieDataTabungan = [
     PieData('Kekurang', 80, 'Rp. 80.000.000'),
