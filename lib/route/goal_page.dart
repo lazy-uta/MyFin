@@ -4,6 +4,7 @@ import 'package:myfin/controller/Input_form_controller.dart';
 import 'package:myfin/controller/goal_controller.dart';
 import 'package:myfin/controller/user_controller.dart';
 import 'package:myfin/model/pie_data.dart';
+import 'package:myfin/route/form_input_page.dart';
 import 'package:myfin/widget/circulat_bar.dart';
 import 'package:myfin/widget/graph_footer.dart';
 import 'package:myfin/widget/heading_app.dart';
@@ -66,6 +67,55 @@ class GoalPage extends StatelessWidget {
     return TextButton(
       child: Text("See Detail"),
       onPressed: () {},
+    );
+  }
+
+  Widget plusMinus() {
+    return Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              ClipOval(
+                child: Material(
+                  color: Colors.red[200], //button color
+                  child: InkWell(
+                    splashColor: Colors.red, //inkwell color
+                    child: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: Icon(Icons.remove),
+                    ),
+                    onTap: () {},
+                  ),
+                ),
+              ),
+              SizedBox(
+                width: 12,
+              ),
+              ClipOval(
+                child: Material(
+                  color: Colors.green[200], //button color
+                  child: InkWell(
+                    splashColor: Colors.green, //inkwell color
+                    child: SizedBox(
+                      width: 40,
+                      height: 40,
+                      child: Icon(Icons.add),
+                    ),
+                    onTap: () {
+                      Get.to(InputForm());
+                    },
+                  ),
+                ),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 
@@ -232,7 +282,8 @@ class GoalPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           heading(user.image, user.username),
-          mainBox(320, graphBar(pieDataTabungan, "tabungan"), "Financial Goal"),
+          mainBox(320, graphBar(pieDataTabungan, "tabungan"), "Financial Goal",
+              plusMinus()),
           footerGraph(_bodyFooter("Goals")),
           secondBox(
               230,

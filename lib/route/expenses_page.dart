@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:myfin/controller/expenses_controller.dart';
 import 'package:myfin/model/pie_data.dart';
+import 'package:myfin/route/form_input_page.dart';
 import 'package:myfin/widget/circulat_bar.dart';
 import 'package:myfin/widget/graph_footer.dart';
 import 'package:myfin/widget/last_record.dart';
@@ -94,24 +95,33 @@ class ExpensePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          // heading(),
-          mainBox(320, graphBar(pieDataPengeluaran, "Pengeluaran"), "Expense"),
-          footerGraph(_bodyFooter("Total")),
+    return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.to(InputForm());
+        },
+        child: Text("INPUT"),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            // heading(),
+            mainBox(320, graphBar(pieDataPengeluaran, "Pengeluaran"), "Expense",
+                SizedBox()),
+            footerGraph(_bodyFooter("Total")),
 
-          secondBox(
-              230,
-              lastRecord(listTabungan,
-                  listTabungan.length >= 5 ? 4 : listTabungan.length),
-              "Last Record",
-              footerLastRecord()),
-          SizedBox(
-            height: 20,
-          ),
-        ],
+            secondBox(
+                230,
+                lastRecord(listTabungan,
+                    listTabungan.length >= 5 ? 4 : listTabungan.length),
+                "Last Record",
+                footerLastRecord()),
+            SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
       ),
     );
   }

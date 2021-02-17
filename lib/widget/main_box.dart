@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 import 'package:myfin/route/form_input_page.dart';
 
-Widget mainBox(double height, body, String boxTitle) {
+Widget mainBox(double height, body, String boxTitle, Widget buttonplus) {
   return Container(
       width: double.infinity,
       height: height,
@@ -62,70 +62,7 @@ Widget mainBox(double height, body, String boxTitle) {
                   ),
                 ],
               ),
-              Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        ClipOval(
-                          child: Material(
-                            color: Colors.red[200], //button color
-                            child: InkWell(
-                              splashColor: Colors.red, //inkwell color
-                              child: SizedBox(
-                                width: 40,
-                                height: 40,
-                                child: Icon(Icons.remove),
-                              ),
-                              onTap: () {},
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          width: 12,
-                        ),
-                        ClipOval(
-                          child: Material(
-                            color: Colors.green[200], //button color
-                            child: InkWell(
-                              splashColor: Colors.green, //inkwell color
-                              child: SizedBox(
-                                width: 40,
-                                height: 40,
-                                child: Icon(Icons.add),
-                              ),
-                              onTap: () {
-                                Get.to(InputForm());
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 100),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      child: Text(
-                        'See Detail',
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 16,
-                        ),
-                      ),
-                      onPressed: () {},
-                    )
-                  ],
-                ),
-              ),
+              buttonplus,
             ],
           ),
         ),
