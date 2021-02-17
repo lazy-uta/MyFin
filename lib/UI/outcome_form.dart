@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myfin/controller/Input_form_controller.dart';
 import 'package:myfin/controller/outcome_form_controller.dart';
 import 'package:myfin/widget/text_form.dart';
 

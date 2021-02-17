@@ -22,7 +22,5 @@ Widget buildTextForm({String label, int lenght, Function onsave}) {
     },
     maxLength: lenght,
     onSaved: onsave,
-    onChanged: (value) => print(value),
-    onFieldSubmitted: (value) => print(value),
   );
 }

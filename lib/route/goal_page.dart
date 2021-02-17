@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:myfin/controller/Input_form_controller.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:myfin/controller/goal_controller.dart';
 import 'package:myfin/controller/user_controller.dart';
 import 'package:myfin/model/pie_data.dart';
-import 'package:myfin/route/form_input_page.dart';
 import 'package:myfin/widget/circulat_bar.dart';
 import 'package:myfin/widget/graph_footer.dart';
 import 'package:myfin/widget/heading_app.dart';
@@ -70,7 +69,7 @@ class GoalPage extends StatelessWidget {
     );
   }
 
-  Widget plusMinus() {
+  Widget plusMinus(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(18.0),
       child: Column(
@@ -89,7 +88,14 @@ class GoalPage extends StatelessWidget {
                       height: 40,
                       child: Icon(Icons.remove),
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      alertIncome(
+                        context,
+                        title: "Keluar",
+                        color: Colors.red,
+                        // save: goal.saveOutcome()
+                      );
+                    },
                   ),
                 ),
               ),
@@ -107,7 +113,12 @@ class GoalPage extends StatelessWidget {
                       child: Icon(Icons.add),
                     ),
                     onTap: () {
-                      Get.to(InputForm());
+                      alertIncome(
+                        context,
+                        title: "Masuk",
+                        color: Colors.green,
+                        // save: goal.saveData()
+                      );
                     },
                   ),
                 ),
@@ -148,9 +159,11 @@ class GoalPage extends StatelessWidget {
               Icons.home_outlined,
               color: Colors.blue,
             ),
-            Text(
-              "${goal.goalname}",
-              style: TextStyle(fontWeight: FontWeight.w300, fontSize: 18),
+            Obx(
+              () => Text(
+                "${goal.goalname}",
+                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 18),
+              ),
             ),
             Spacer(
               flex: 3,
@@ -191,15 +204,16 @@ class GoalPage extends StatelessWidget {
                 child: Text(":"),
               ),
               Expanded(
-                flex: 3,
-                child: Text(
-                  "IDR ${goal.goalcost}",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 19,
-                      color: Colors.orange),
-                ),
-              )
+                  flex: 3,
+                  child: Obx(
+                    () => Text(
+                      "IDR ${goal.goalcost}",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 19,
+                          color: Colors.orange),
+                    ),
+                  ))
             ],
           ),
         ),
@@ -221,15 +235,16 @@ class GoalPage extends StatelessWidget {
                 child: Text(":"),
               ),
               Expanded(
-                flex: 3,
-                child: Text(
-                  "IDR ${goal.deposite}",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 19,
-                      color: Colors.green),
-                ),
-              )
+                  flex: 3,
+                  child: Obx(
+                    () => Text(
+                      "IDR ${goal.deposite}",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 19,
+                          color: Colors.green),
+                    ),
+                  ))
             ],
           ),
         ),
@@ -259,20 +274,59 @@ class GoalPage extends StatelessWidget {
                     color: Colors.red,
                   )),
               Expanded(
-                flex: 3,
-                child: Text(
-                  "IDR ${goal.gab}",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 19,
-                      color: Colors.red),
-                ),
-              )
+                  flex: 3,
+                  child: Obx(
+                    () => Text(
+                      "IDR ${goal.gab}",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 19,
+                          color: Colors.red),
+                    ),
+                  ))
             ],
           ),
         ),
       ],
     );
+  }
+
+  alertIncome(BuildContext context, {String title, Color color, save}) {
+    return Alert(
+        context: context,
+        title: title,
+        content: Form(
+          key: goal.formkey,
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                  // obscureText: true,
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.lock),
+                    labelText: 'Nominal',
+                    // hintText: "10000000",
+                  ),
+                  keyboardType: TextInputType.number,
+                  onSaved: (value) {
+                    goal.nominal = num.parse(value);
+                  }),
+            ],
+          ),
+        ),
+        buttons: [
+          DialogButton(
+            onPressed: () {
+              Navigator.pop(context);
+              GoalPage().goal.formkey.currentState.save();
+              goal.saveData();
+            },
+            child: Text(
+              "SUBMITE",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            color: color,
+          )
+        ]).show();
   }
 
   @override
@@ -283,7 +337,7 @@ class GoalPage extends StatelessWidget {
         children: [
           heading(user.image, user.username),
           mainBox(320, graphBar(pieDataTabungan, "tabungan"), "Financial Goal",
-              plusMinus()),
+              plusMinus(context)),
           footerGraph(_bodyFooter("Goals")),
           secondBox(
               230,

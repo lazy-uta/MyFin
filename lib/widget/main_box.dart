@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-
-import 'package:myfin/route/form_input_page.dart';
 
 Widget mainBox(double height, body, String boxTitle, Widget buttonplus) {
   return Container(
