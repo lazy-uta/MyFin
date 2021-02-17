@@ -14,9 +14,13 @@ class GoalController extends GetxController {
 
   calculate() => gab.value = goalcost.value - deposite.value;
 
-  saveData() async {
+  saveData(id) async {
     //store data to database
-    deposite.value += nominal;
+    if (id == 0) {
+      deposite.value += nominal;
+    } else {
+      deposite.value -= nominal;
+    }
     calculate();
   }
 

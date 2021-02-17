@@ -89,12 +89,10 @@ class GoalPage extends StatelessWidget {
                       child: Icon(Icons.remove),
                     ),
                     onTap: () {
-                      alertIncome(
-                        context,
-                        title: "Keluar",
-                        color: Colors.red,
-                        // save: goal.saveOutcome()
-                      );
+                      alertIncome(context,
+                          title: "Keluar", color: Colors.red, id: 1
+                          // save: goal.saveOutcome()
+                          );
                     },
                   ),
                 ),
@@ -113,12 +111,8 @@ class GoalPage extends StatelessWidget {
                       child: Icon(Icons.add),
                     ),
                     onTap: () {
-                      alertIncome(
-                        context,
-                        title: "Masuk",
-                        color: Colors.green,
-                        // save: goal.saveData()
-                      );
+                      alertIncome(context,
+                          title: "Masuk", color: Colors.green, id: 0);
                     },
                   ),
                 ),
@@ -130,7 +124,7 @@ class GoalPage extends StatelessWidget {
     );
   }
 
-  Widget _bodyFooter(String boxTitle) {
+  Widget _bodyFooter(String boxTitle, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -175,7 +169,10 @@ class GoalPage extends StatelessWidget {
                   Icons.edit,
                   color: Colors.blue[400],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  editGoal(context, title: "Goal");
+                  goal.calculate();
+                },
               ),
             )
           ],
@@ -291,7 +288,7 @@ class GoalPage extends StatelessWidget {
     );
   }
 
-  alertIncome(BuildContext context, {String title, Color color, save}) {
+  alertIncome(BuildContext context, {String title, Color color, save, int id}) {
     return Alert(
         context: context,
         title: title,
@@ -318,13 +315,63 @@ class GoalPage extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
               GoalPage().goal.formkey.currentState.save();
-              goal.saveData();
+              goal.saveData(id);
             },
             child: Text(
               "SUBMITE",
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
             color: color,
+          )
+        ]).show();
+  }
+
+  editGoal(
+    BuildContext context, {
+    String title,
+  }) {
+    return Alert(
+        context: context,
+        title: title,
+        content: Form(
+          key: goal.formkey,
+          child: Column(
+            children: <Widget>[
+              TextFormField(
+                  // obscureText: true,
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.lock),
+                    labelText: 'Goal',
+                    // hintText: "10000000",
+                  ),
+                  onSaved: (value) {
+                    goal.goalname.value = value;
+                  }),
+              TextFormField(
+                  // obscureText: true,
+                  decoration: InputDecoration(
+                    icon: Icon(Icons.lock),
+                    labelText: 'Nominal',
+                    hintText: "10000000",
+                  ),
+                  keyboardType: TextInputType.number,
+                  onSaved: (value) {
+                    goal.goalcost.value = num.parse(value);
+                  }),
+            ],
+          ),
+        ),
+        buttons: [
+          DialogButton(
+            onPressed: () {
+              Navigator.pop(context);
+              GoalPage().goal.formkey.currentState.save();
+            },
+            child: Text(
+              "SUBMITE",
+              style: TextStyle(color: Colors.white, fontSize: 20),
+            ),
+            color: Colors.blue,
           )
         ]).show();
   }
@@ -338,7 +385,7 @@ class GoalPage extends StatelessWidget {
           heading(user.image, user.username),
           mainBox(320, graphBar(pieDataTabungan, "tabungan"), "Financial Goal",
               plusMinus(context)),
-          footerGraph(_bodyFooter("Goals")),
+          footerGraph(_bodyFooter("Goals", context)),
           secondBox(
               230,
               lastRecord(listTabungan,
